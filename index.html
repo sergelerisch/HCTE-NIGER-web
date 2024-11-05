@@ -10,15 +10,15 @@
 <body onload="showWelcomeModal()">
     <div class="welcome-modal" id="welcome-modal">
         <div class="welcome-content">
-		  <div class="image-container">
-            <img src="image2.jpg" alt="Image de Bienvenue" class="welcome-image">
-          </div>
+            <div class="image-container">
+                <img src="image2.jpg" alt="Image de Bienvenue" class="welcome-image">
+            </div>
             <h2>Bienvenue sur HCTE-NIGER</h2>
             <p>Veuillez vous authentifier pour accéder aux informations.</p>
             <button onclick="requestAuthorization()">Continuer</button>
 
             <!-- Publicité visible pour tous sur la page de bienvenue -->
-            <div class="publicite">
+            <div class="publicite" id="publicite-display">
                 <p>Votre publicité ici ! Contactez-nous pour plus d'informations.</p>
             </div>
         </div>
@@ -100,24 +100,88 @@
             <!-- Section pour gérer les publicités -->
             <section id="ad-section" style="display:none;">
                 <h2>Gérer les Publicités</h2>
-                <form id="ad-form">
+                <form id="ad-form" onsubmit="addAd(event)">
                     <label for="ad-type">Type de publicité :</label>
                     <select id="ad-type">
                         <option value="text">Texte</option>
                         <option value="image">Image</option>
                         <option value="video">Vidéo</option>
                     </select>
-                    <input type="text" id="ad-text" placeholder="Entrez le texte de l'annonce" />
+                    <input type="text" id="ad-text" placeholder="Entrez le texte de l'annonce" required />
                     <input type="file" id="ad-file" accept="image/*,video/*" />
-                    <button type="button" onclick="addAd()">Ajouter la Publicité</button>
+                    <button type="submit">Ajouter la Publicité</button>
                 </form>
                 <div id="ad-display"></div>
             </section>
-			<!-- Importer des données -->
+            <!-- Importer des données -->
             <input type="file" id="json-file" onchange="importDataFromJSON(event)">
             <input type="file" id="csv-file" onchange="importDataFromCSV(event)">
-			
         </main>
     </div>
+
+    <script>
+        const ads = []; // Tableau pour stocker les publicités
+
+        // Fonction pour ajouter une publicité
+        function addAd(event) {
+            event.preventDefault(); // Empêcher le rechargement de la page
+            const adType = document.getElementById('ad-type').value;
+            const adText = document.getElementById('ad-text').value;
+            const adFile = document.getElementById('ad-file').files[0];
+
+            // Créer un objet pour la publicité
+            const ad = {
+                type: adType,
+                text: adText,
+                file: adFile ? URL.createObjectURL(adFile) : null,
+            };
+
+            ads.push(ad); // Ajouter la publicité au tableau
+            displayAds(); // Mettre à jour l'affichage
+            document.getElementById('ad-form').reset(); // Réinitialiser le formulaire
+        }
+
+        // Fonction pour afficher les publicités
+        function displayAds() {
+            const adDisplay = document.getElementById('ad-display');
+            adDisplay.innerHTML = ''; // Réinitialiser l'affichage des publicités
+
+            ads.forEach(ad => {
+                const adElement = document.createElement('div');
+                if (ad.type === 'text') {
+                    adElement.innerText = ad.text;
+                } else if (ad.type === 'image') {
+                    const img = document.createElement('img');
+                    img.src = ad.file;
+                    img.alt = ad.text;
+                    img.style.maxWidth = '200px'; // Limiter la taille de l'image
+                    adElement.appendChild(img);
+                } else if (ad.type === 'video') {
+                    const video = document.createElement('video');
+                    video.src = ad.file;
+                    video.controls = true;
+                    adElement.appendChild(video);
+                }
+                adDisplay.appendChild(adElement);
+            });
+
+            // Afficher les publicités sur la page de bienvenue
+            const publiciteDisplay = document.getElementById('publicite-display');
+            publiciteDisplay.innerHTML = ''; // Réinitialiser l'affichage
+            ads.forEach(ad => {
+                const adElement = document.createElement('div');
+                adElement.innerHTML = `<p>${ad.text}</p>`;
+                publiciteDisplay.appendChild(adElement);
+            });
+        }
+
+        // Fonction pour afficher la section de gestion des publicités
+        function showAdForm() {
+            document.getElementById('ad-section').style.display = 'block';
+            document.getElementById('form-section').style.display = 'none';
+            document.getElementById('list-section').style.display = 'none';
+            document.getElementById('publicite-display').style.display = 'none';
+        }
+    </script>
 </body>
 </html>

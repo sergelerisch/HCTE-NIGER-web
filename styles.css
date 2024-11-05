@@ -5,6 +5,7 @@ body {
     background-color: #f4f4f4;
 }
 
+/* Style pour la fenêtre modale de bienvenue */
 .welcome-modal {
     display: flex;
     position: fixed;
@@ -18,6 +19,7 @@ body {
     z-index: 1000;
 }
 
+/* Contenu de la fenêtre modale */
 .welcome-content {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 20px;
@@ -26,12 +28,15 @@ body {
     z-index: 1001;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+/* Conteneur d'images dans la fenêtre modale */
 .image-container {
     display: flex; /* Utilise Flexbox */
     justify-content: center; /* Centre l'image horizontalement */
     margin-bottom: 20px; /* Espacement en bas de l'image */
 }
 
+/* Section de publicités */
 .publicite {
     background-color: #e0ffe0;
     text-align: center;
@@ -43,11 +48,41 @@ body {
     border-radius: 5px;
 }
 
+/* Section pour afficher les publicités */
+#ad-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+}
+
+/* Conteneur pour afficher les publicités */
+#ad-display {
+    margin-top: 10px;
+}
+
+/* Style pour chaque publicité */
+#ad-display div {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #eaeaea;
+    border-radius: 8px;
+}
+
+/* Style pour les images et vidéos dans les publicités */
+#ad-display img,
+#ad-display video {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Conteneur général */
 .container {
     width: 80%;
     margin: 0 auto;
 }
 
+/* En-tête de la page */
 header {
     background-color: #008d40;
     color: #fff;
@@ -56,6 +91,7 @@ header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Navigation */
 nav {
     margin: 20px 0;
     text-align: center;
@@ -77,6 +113,7 @@ nav {
     transform: translateY(-2px);
 }
 
+/* Section principale */
 main {
     padding: 20px;
     background-color: #fff;
@@ -85,12 +122,14 @@ main {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Formulaire */
 form {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
+/* Boutons généraux */
 button {
     background-color: #f0a500;
     color: white;
@@ -106,6 +145,7 @@ button:hover {
     transform: translateY(-2px);
 }
 
+/* Tableaux */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -122,14 +162,29 @@ th {
     background-color: #f4f4f4;
 }
 
+/* Liste des demandeurs */
 #demandeurs-list {
     margin-top: 20px;
 }
 
+/* Section des publicités */
 #ad-section {
     margin-top: 20px;
 }
 
+/* Affichage des publicités */
 #ad-display {
     margin-top: 10px;
+}
+
+/* Style des publicités sur la page principale */
+.publicite {
+    background-color: #e0ffe0;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #008d40;
+    margin-top: 20px;
+    border-radius: 5px;
 }
