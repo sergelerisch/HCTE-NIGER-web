@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCTE-NIGER - Gestion des Demandeurs de Carte Consulaire</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body onload="showWelcomeModal()">
+    <div class="welcome-modal" id="welcome-modal">
+        <div class="welcome-content">
+		  <div class="image-container">
+            <img src="image2.jpg" alt="Image de Bienvenue" class="welcome-image">
+          </div>
+            <h2>Bienvenue sur HCTE-NIGER</h2>
+            <p>Veuillez vous authentifier pour accéder aux informations.</p>
+            <button onclick="requestAuthorization()">Continuer</button>
+
+            <!-- Publicité visible pour tous sur la page de bienvenue -->
+            <div class="publicite">
+                <p>Votre publicité ici ! Contactez-nous pour plus d'informations.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="main-content" style="display:none;">
+        <header>
+            <h1>HCTE-NIGER</h1>
+            <nav>
+                <button class="nav-button" onclick="showForm()">Ajouter un Demandeur</button>
+                <button class="nav-button" onclick="showList()">Liste des Demandeurs</button>
+                <button class="nav-button" onclick="sendWhatsApp()">Envoyer un Message WhatsApp</button>
+                <button class="nav-button" id="manage-ads" onclick="showAdForm()" style="display:none;">Gérer les Publicités</button>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Section du formulaire pour enregistrer un demandeur -->
+            <section id="form-section">
+                <h2>Enregistrer un Demandeur</h2>
+                <form id="registration-form" onsubmit="saveDemandeur(event)">
+                    <label for="nom">Nom:</label>
+                    <input type="text" id="nom" required>
+                    <label for="prenom">Prénom:</label>
+                    <input type="text" id="prenom" required>
+                    <label for="phone">Numéro de Téléphone WhatsApp:</label>
+                    <input type="tel" id="phone" required>
+                    <label for="address">Adresse:</label>
+                    <input type="text" id="address" required>
+                    <label for="emergency-contact">Personne à Prévenir:</label>
+                    <input type="text" id="emergency-contact" required>
+                    <label for="profession">Profession:</label>
+                    <input type="text" id="profession" required>
+                    <label for="height">Taille (en m):</label>
+                    <input type="number" id="height" step="0.01" min="0" placeholder="0.00" required>
+                    <label for="nationality-certificate">Certificat de Nationalité:</label>
+                    <input type="file" id="nationality-certificate">
+                    <button type="button" onclick="capturePhoto('nationality-certificate')">Prendre une Photo</button>
+                    <img id="nationality-certificate-preview" alt="Aperçu du Certificat" style="display:none;">
+                    <label for="birth-certificate">Acte de Naissance:</label>
+                    <input type="file" id="birth-certificate">
+                    <button type="button" onclick="capturePhoto('birth-certificate')">Prendre une Photo</button>
+                    <img id="birth-certificate-preview" alt="Aperçu de l'Acte" style="display:none;">
+                    <label for="photo">Photo:</label>
+                    <input type="file" id="photo" accept="image/*">
+                    <button type="button" onclick="capturePhoto('photo')">Prendre une Photo</button>
+                    <img id="photo-preview" alt="Aperçu de la Photo" style="display:none;">
+                    <button type="submit">Inscription Validée</button>
+                </form>
+            </section>
+
+            <!-- Section pour la liste des demandeurs -->
+            <section id="list-section" style="display:none;">
+                <h2>Liste des Demandeurs</h2>
+                <table id="demandeurs-list">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Numéro de Téléphone</th>
+                            <th>Adresse</th>
+                            <th>Personne à Prévenir</th>
+                            <th>Profession</th>
+                            <th>Taille</th>
+                            <th>Certificat</th>
+                            <th>Acte</th>
+                            <th>Photo</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <button id="print-list" onclick="printList()">Imprimer la Liste</button>
+                <button id="export-json" onclick="exportDataAsJSON()">Télécharger les données JSON</button>
+                <button id="export-csv" onclick="exportDataAsCSV()">Télécharger les données CSV</button>
+            </section>
+
+            <!-- Section pour gérer les publicités -->
+            <section id="ad-section" style="display:none;">
+                <h2>Gérer les Publicités</h2>
+                <form id="ad-form">
+                    <label for="ad-type">Type de publicité :</label>
+                    <select id="ad-type">
+                        <option value="text">Texte</option>
+                        <option value="image">Image</option>
+                        <option value="video">Vidéo</option>
+                    </select>
+                    <input type="text" id="ad-text" placeholder="Entrez le texte de l'annonce" />
+                    <input type="file" id="ad-file" accept="image/*,video/*" />
+                    <button type="button" onclick="addAd()">Ajouter la Publicité</button>
+                </form>
+                <div id="ad-display"></div>
+            </section>
+			<!-- Importer des données -->
+            <input type="file" id="json-file" onchange="importDataFromJSON(event)">
+            <input type="file" id="csv-file" onchange="importDataFromCSV(event)">
+			
+        </main>
+    </div>
+</body>
+</html>
