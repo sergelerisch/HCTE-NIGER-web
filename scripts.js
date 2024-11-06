@@ -15,6 +15,7 @@ function requestAuthorization() {
         document.getElementById('main-content').style.display = 'block';
         document.getElementById('manage-ads').style.display = 'block'; // Montrer le bouton de gestion des publicités
         initIndexedDB();
+        displayAds(); // Afficher les publicités après l'autorisation
     } else {
         alert("Accès refusé.");
     }
@@ -86,6 +87,7 @@ function deleteDemandeur(index) {
     showList(); // Refresh the list
 }
 
+// Capture de photo avec la caméra
 function capturePhoto(inputId) {
     const videoElement = document.createElement('video');
     const canvasElement = document.createElement('canvas');
@@ -120,6 +122,7 @@ function capturePhoto(inputId) {
         });
 }
 
+// Envoyer un message WhatsApp
 function sendWhatsApp() {
     const message = "Bonjour, je souhaite en savoir plus sur le service.";
     const phone = "0123456789"; // Remplacez par le numéro de téléphone de destination
@@ -132,6 +135,7 @@ function showForm() {
     document.getElementById('list-section').style.display = 'none';
 }
 
+// Impression de la liste
 function printList() {
     const printContent = document.getElementById('list-section').innerHTML;
     const printWindow = window.open('', '_blank', 'height=500,width=800');
@@ -142,7 +146,8 @@ function printList() {
     printWindow.document.close();
     printWindow.print();
 }
-// Importer les données depuis un fichier JSON
+
+// Import de données depuis un fichier JSON
 function importDataFromJSON(event) {
     const file = event.target.files[0];
     if (file && file.type === "application/json") {
@@ -163,7 +168,7 @@ function importDataFromJSON(event) {
     }
 }
 
-// Importer les données depuis un fichier CSV
+// Import de données depuis un fichier CSV
 function importDataFromCSV(event) {
     const file = event.target.files[0];
     if (file && file.type === "text/csv") {
@@ -193,6 +198,7 @@ function importDataFromCSV(event) {
     }
 }
 
+// Export des données en JSON
 function exportDataAsJSON() {
     const dataStr = JSON.stringify(demandeurs, null, 2);
     const blob = new Blob([dataStr], { type: 'application/json' });
@@ -205,6 +211,7 @@ function exportDataAsJSON() {
     document.body.removeChild(a);
 }
 
+// Export des données en CSV
 function exportDataAsCSV() {
     const csvRows = [];
     const headers = ['Nom', 'Prénom', 'Numéro de Téléphone', 'Adresse', 'Personne à Prévenir', 'Profession', 'Taille'];
@@ -234,10 +241,12 @@ function exportDataAsCSV() {
     document.body.removeChild(a);
 }
 
+// Afficher le formulaire de publicité
 function showAdForm() {
     document.getElementById('ad-section').style.display = 'block';
 }
 
+// Ajouter une publicité
 function addAd() {
     const adType = document.getElementById('ad-type').value;
     const adText = document.getElementById('ad-text').value;
@@ -246,17 +255,31 @@ function addAd() {
     if (adType === 'text' && adText) {
         const adDisplay = document.getElementById('ad-display');
         const adElement = document.createElement('div');
-        adElement.innerHTML = `<p>${adText}</p>`;
+        adElement.textContent = adText;
         adDisplay.appendChild(adElement);
-        document.getElementById('ad-form').reset();
-    } else if (adFile) {
+    } else if (adType === 'image' && adFile) {
         const adDisplay = document.getElementById('ad-display');
-        const adElement = document.createElement('div');
-        const adUrl = URL.createObjectURL(adFile);
-        adElement.innerHTML = `<video width="320" height="240" controls><source src="${adUrl}" type="${adFile.type}"></video>`;
-        adDisplay.appendChild(adElement);
-        document.getElementById('ad-form').reset();
+        const imgElement = document.createElement('img');
+        imgElement.src = URL.createObjectURL(adFile);
+        adDisplay.appendChild(imgElement);
     } else {
-        alert('Veuillez entrer un texte ou télécharger un fichier pour la publicité.');
+        alert("Veuillez remplir tous les champs.");
     }
+
+    document.getElementById('ad-form').reset();
+}
+
+// Fonction pour afficher les publicités dynamiquement
+function displayAds() {
+    const adTypes = ['image1.jpg', 'image2.jpg', 'image3.jpg'];
+    currentAd = 0;
+
+    function rotateAds() {
+        const adDisplay = document.getElementById('dynamic-ad');
+        adDisplay.src = adTypes[currentAd];
+        currentAd = (currentAd + 1) % adTypes.length;
+    }
+
+    rotateAds();
+    setInterval(rotateAds, 3000); // Changer l'annonce toutes les 3 secondes
 }

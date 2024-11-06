@@ -31,55 +31,9 @@ body {
 
 /* Conteneur d'images dans la fenêtre modale */
 .image-container {
-    display: flex; /* Utilise Flexbox */
-    justify-content: center; /* Centre l'image horizontalement */
-    margin-bottom: 20px; /* Espacement en bas de l'image */
-}
-
-/* Section de publicités */
-.publicite {
-    background-color: #e0ffe0;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    color: #008d40;
-    margin-top: 20px;
-    border-radius: 5px;
-}
-
-/* Section pour afficher les publicités */
-#ad-section {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #fff;
-}
-
-/* Conteneur pour afficher les publicités */
-#ad-display {
-    margin-top: 10px;
-}
-
-/* Style pour chaque publicité */
-#ad-display div {
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #eaeaea;
-    border-radius: 8px;
-}
-
-/* Style pour les images et vidéos dans les publicités */
-#ad-display img,
-#ad-display video {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-/* Conteneur général */
-.container {
-    width: 80%;
-    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 /* En-tête de la page */
@@ -162,22 +116,7 @@ th {
     background-color: #f4f4f4;
 }
 
-/* Liste des demandeurs */
-#demandeurs-list {
-    margin-top: 20px;
-}
-
 /* Section des publicités */
-#ad-section {
-    margin-top: 20px;
-}
-
-/* Affichage des publicités */
-#ad-display {
-    margin-top: 10px;
-}
-
-/* Style des publicités sur la page principale */
 .publicite {
     background-color: #e0ffe0;
     text-align: center;
@@ -187,4 +126,37 @@ th {
     color: #008d40;
     margin-top: 20px;
     border-radius: 5px;
+}
+
+/* Section pour afficher les publicités */
+#ad-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+}
+
+/* Conteneur pour afficher les publicités */
+#ad-display {
+    margin-top: 10px;
+}
+
+/* Style pour chaque publicité */
+#ad-display div {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #eaeaea;
+    border-radius: 8px;
+}
+
+/* Style pour les images et vidéos dans les publicités */
+#ad-display img,
+#ad-display video {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Liste des demandeurs */
+#demandeurs-list {
+    margin-top: 20px;
 }
